@@ -1,0 +1,14 @@
+.nav {
+    grid-area: nav;
+    background-color:aquamarine;
+    padding: 20px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+[aria-current] {
+    color: gold;
+}
