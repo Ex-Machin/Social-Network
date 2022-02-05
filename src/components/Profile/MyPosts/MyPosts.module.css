@@ -5,3 +5,11 @@
 .item img {
   width: 50px;
 }
+
+.postBlock {
+  padding: 10px;
+}
+
+.posts {
+  margin-top: 10px;
+}
