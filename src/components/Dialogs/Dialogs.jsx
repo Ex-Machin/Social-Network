@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Dialogs.module.css";
 import { NavLink } from "react-router-dom";
+import { logDOM } from "@testing-library/react";
 
 export const DialogItem = ({ name, path }) => {
   return (
@@ -10,25 +11,34 @@ export const DialogItem = ({ name, path }) => {
   );
 };
 
-export const Message = ({messageContent}) => {
+export const Message = ({ messageContent }) => {
   return <div className={s.message}>{messageContent}</div>;
 };
 
-
 const Dialogs = () => {
+  const dialogsData = [
+    { id: 1, name: "Lisa" },
+    { id: 2, name: "Vika" },
+    { id: 3, name: "Lilia" },
+    { id: 4, name: "Vlad" },
+    { id: 5, name: "Dima" },
+  ];
+  const messagesData = [
+    { id: 1, message: "hi" },
+    { id: 2, message: "What da fuck!" },
+    { id: 3, message: "Esketit" },
+  ];
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
-        <DialogItem name="Lisa" path="1" />
-        <DialogItem name="Vika" path="2" />
-        <DialogItem name="Lilia" path="3" />
-        <DialogItem name="Vlad" path="4" />
-        <DialogItem name="Dima" path="5" />
+        {dialogsData.map((item) => {
+          return <DialogItem key={item.id} name={item.name} path={item.id} />;
+        })}
       </div>
       <div className={s.messages}>
-        <Message messageContent='hi'/>
-        <Message messageContent='What da fuck!'/>
-        <Message messageContent='Esketit'/>
+      {messagesData.map((item) => {
+          return <Message messageContent={item.message} key={item.id} />;
+        })}
       </div>
     </div>
   );
