@@ -19,6 +19,11 @@ const state = {
       { id: 5, name: "Dima" },
     ],
   },
+  sideBar: [
+      { id: 1, name: 'Lika', src: 'https://i.quotev.com/img/q/u/20/8/16/hzedqa72l2_l.jpg'},
+      { id: 1, name: 'Kair', src: 'https://i.quotev.com/img/q/u/20/8/16/hzedqa72l2_l.jpg'},
+      { id: 1, name: 'Yulia', src: 'https://i.quotev.com/img/q/u/20/8/16/hzedqa72l2_l.jpg'},
+  ]
 
 };
 

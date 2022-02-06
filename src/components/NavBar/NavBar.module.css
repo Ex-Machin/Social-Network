@@ -12,3 +12,13 @@ a {
 [aria-current] {
     color: gold;
 }
+
+.friendsBlock {
+    display: flex;
+}
+
+.friendsImage {
+    margin-top: 20px;
+    width: 40px;
+    padding: 5px;
+}

@@ -2,7 +2,8 @@ import React from "react";
 import s from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ friendsData }) => {
+  console.log(friendsData);
   return (
     <nav className={s.nav}>
       <div>
@@ -44,6 +45,19 @@ const NavBar = () => {
         >
           Settings
         </NavLink>
+      </div>
+      <div>
+        Friends
+        <div className={s.friendsBlock}>
+          {friendsData.map((item) => {
+            return (
+              <div key={item.id}>
+                <img src={item.src} alt="" className={s.friendsImage}></img>
+                <div>{item.name}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
