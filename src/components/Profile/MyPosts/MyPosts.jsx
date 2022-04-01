@@ -1,13 +1,15 @@
 import React from "react";
 import { createRef } from "react/cjs/react.production.min";
+import { rerenderEntireTree } from "../../..";
 import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 
-const MyPosts = ({ postsData }) => {
+const MyPosts = ({ postsData, addPosts }) => {
   let newPostElement = createRef();
 
   const addPost = () => {
     let text = newPostElement.current.value;
+    addPosts(text)
   };
 
   return (
