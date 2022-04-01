@@ -7,7 +7,6 @@ const MyPosts = ({ postsData }) => {
   let newPostElement = createRef();
 
   const addPost = () => {
-    debugger;
     let text = newPostElement.current.value;
   };
 
