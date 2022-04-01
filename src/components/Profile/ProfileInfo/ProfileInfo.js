@@ -9,13 +9,6 @@ const ProfileInfo = () => {
         alt=""
       />
       <div className={s.descriptionBlock}>
-        <div>
-          <textarea></textarea>
-        </div>
-        <div>
-          <button>Add Post</button>
-          <button>Remove</button>
-        </div>
       </div>
     </div>
   );
