@@ -8,7 +8,7 @@ const Dialogs = ({ dialogsData, messagesData }) => {
   let newMessageElement = createRef();
 
   const addMessage = () => {
-    let text = newMessageElement.current.value;
+    //let text = newMessageElement.current.value;
   };
   return (
     <div className={s.dialogs}>

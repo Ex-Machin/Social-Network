@@ -1,22 +1,29 @@
 import React from "react";
 import { createRef } from "react/cjs/react.production.min";
-import { rerenderEntireTree } from "../../..";
 import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 
-const MyPosts = ({ postsData, addPosts }) => {
+const MyPosts = ({ postsData, addPosts, newPostText, updateNewPostText }) => {
   let newPostElement = createRef();
 
   const addPost = () => {
+    addPosts();
+  };
+
+  let onPostChange = () => {
     let text = newPostElement.current.value;
-    addPosts(text)
+    updateNewPostText(text);
   };
 
   return (
     <div className={s.postBlock}>
       <h3>My Posts</h3>
       <div>
-        <textarea ref={newPostElement}></textarea>
+        <textarea
+          onChange={onPostChange}
+          ref={newPostElement}
+          value={newPostText}
+        />
       </div>
       <div>
         <button onClick={addPost}>Add Post</button>

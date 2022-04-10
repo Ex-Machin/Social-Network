@@ -10,7 +10,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
-const App = ({ state, addPost }) => {
+const App = ({ state, addPost, updateNewPostText }) => {
   return (
     <div className="app-wrapper">
       <Header />
@@ -29,7 +29,11 @@ const App = ({ state, addPost }) => {
           <Route
             path="/profile"
             element={
-              <Profile postsData={state.profilePage.posts} addPost={addPost} />
+              <Profile
+                profilePage={state.profilePage}
+                addPost={addPost}
+                updateNewPostText={updateNewPostText}
+              />
             }
           />
           <Route path="/news" element={<News />} />

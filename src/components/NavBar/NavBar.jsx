@@ -3,7 +3,6 @@ import s from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
 
 const NavBar = ({ friendsData }) => {
-  console.log(friendsData);
   return (
     <nav className={s.nav}>
       <div>
