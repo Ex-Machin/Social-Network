@@ -10,7 +10,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
-const App = ({ state, addPost, updateNewPostText }) => {
+const App = ({ state, dispatch}) => {
   return (
     <div className="app-wrapper">
       <Header />
@@ -31,8 +31,7 @@ const App = ({ state, addPost, updateNewPostText }) => {
             element={
               <Profile
                 profilePage={state.profilePage}
-                addPost={addPost}
-                updateNewPostText={updateNewPostText}
+                dispatch={dispatch}
               />
             }
           />
