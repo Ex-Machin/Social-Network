@@ -1,5 +1,6 @@
 import React from "react";
 import { createRef } from "react/cjs/react.production.min";
+import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/state";
 import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 
@@ -7,12 +8,13 @@ const MyPosts = ({ postsData, dispatch, newPostText }) => {
   let newPostElement = createRef();
 
   const addPost = () => {
-    dispatch({ type: "ADD-POST" });
+    dispatch(addPostActionCreator());
   };
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    dispatch({ type: "UPDATE-NEW-POST-TEXT", newText: text });
+    let action = updateNewPostTextActionCreator(text);
+    dispatch(action);
   };
 
   return (
