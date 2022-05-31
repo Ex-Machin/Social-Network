@@ -14,7 +14,7 @@ const App = ({ state, dispatch, store}) => {
   return (
     <div className="app-wrapper">
       <Header />
-      <NavBar friendsData={state.sideBar} />
+      <NavBar friendsData={state.sidebar} />
       <div className="app-wrapper-content">
         <Routes>
           <Route
