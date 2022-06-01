@@ -5,6 +5,7 @@ import s from "./Dialogs.module.css";
 import Message from "./Messages/Messages";
 
 const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBodyCreator }) => {
+  console.log("dialogsPage", dialogsPage);
   let newMessageElement = createRef();
   const onSendMessageClick = () => {
     sendMessage();
