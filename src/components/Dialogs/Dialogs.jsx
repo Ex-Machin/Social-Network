@@ -1,36 +1,34 @@
 import React from "react";
 import { createRef } from "react/cjs/react.production.min";
-import { sendMessageCreator, updateNewMessageBodyCreator } from "../../redux/dialogsReducer";
 import DialogItem from "./DialogItem/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Messages/Messages";
 
-const Dialogs = ({ dialogsData, messagesData, newMessageBody, dispatch }) => {
+const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBodyCreator }) => {
   let newMessageElement = createRef();
-
   const onSendMessageClick = () => {
-    dispatch(sendMessageCreator());
+    sendMessage();
   };
 
   const onNewMessageChange = (e) => {
     let body = e.target.value;
-    dispatch(updateNewMessageBodyCreator(body));
+    updateNewMessageBodyCreator(body);
   };
 
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
-        {dialogsData.map((item) => {
+        {dialogsPage.dialogs.map((item) => {
           return <DialogItem key={item.id} name={item.name} path={item.id} />;
         })}
       </div>
       <div className={s.messages}>
-        {messagesData.map((item) => {
+        {dialogsPage.messages.map((item) => {
           return <Message messageContent={item.message} key={item.id} />;
         })}
         <div>
           <textarea
-            value={newMessageBody}
+            value={dialogsPage.newMessageBody}
             onChange={onNewMessageChange}
             placeholder="Enter your message"
             ref={newMessageElement}

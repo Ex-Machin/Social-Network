@@ -1,20 +1,18 @@
 import React from "react";
 import { createRef } from "react/cjs/react.production.min";
-import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/profileReducer";
 import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 
-const MyPosts = ({ postsData, dispatch, newPostText }) => {
+const MyPosts = ({ updateNewPostText, postsData, addPost, newPostText }) => {
   let newPostElement = createRef();
 
-  const addPost = () => {
-    dispatch(addPostActionCreator());
+  const onAddPost = () => {
+    addPost();
   };
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    let action = updateNewPostTextActionCreator(text);
-    dispatch(action);
+    updateNewPostText(text);
   };
 
   return (
@@ -28,7 +26,7 @@ const MyPosts = ({ postsData, dispatch, newPostText }) => {
         />
       </div>
       <div>
-        <button onClick={addPost}>Add Post</button>
+        <button onClick={onAddPost}>Add Post</button>
         <button>Remove</button>
       </div>
       <div className={s.posts}>
