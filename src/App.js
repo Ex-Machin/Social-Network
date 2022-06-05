@@ -2,19 +2,19 @@ import "./App.css";
 import React from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
-import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
 import { Routes, Route } from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import NavBarContainer from "./components/NavBar/NavBarContainer";
 
-const App = ({ state }) => {
+const App = () => {
   return (
     <div className="app-wrapper">
       <Header />
-      <NavBar friendsData={state.sidebar} />
+      <NavBarContainer />
       <div className="app-wrapper-content">
         <Routes>
           <Route path="/dialogs/*" element={<DialogsContainer />} />
