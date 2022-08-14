@@ -31,6 +31,14 @@ const NavBar = ({ friendsData }) => {
       </div>
       <div>
         <NavLink
+          to="/users"
+          className={(isActive) => (isActive ? s.active : s.item)}
+        >
+          Users
+        </NavLink>
+      </div>
+      <div>
+        <NavLink
           to="/music"
           className={(isActive) => (isActive ? s.active : s.item)}
         >
