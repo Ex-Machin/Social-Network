@@ -1,50 +1,30 @@
+import axios from "axios";
 import React from "react";
 import styles from "./users.module.css";
+import avatarMock from "../../assets/images/avatar.png";
 
 const Users = ({ users, follow, unfollow, setUsers }) => {
-  if (users.length === 0) {
-    setUsers([
-      {
-        id: 1,
-        icon: "https://cdnn21.img.ria.ru/images/07e5/03/11/1601687968_0:93:1280:813_1920x0_80_0_0_fb747e778aea631288755a1989ff6c14.jpg",
-        followed: true,
-        fullName: "Dmytro",
-        status: "I am a bos",
-        location: { city: "Minsk", country: "Belarus" },
-      },
-      {
-        id: 2,
-        icon: "https://cdnn21.img.ria.ru/images/07e5/03/11/1601687968_0:93:1280:813_1920x0_80_0_0_fb747e778aea631288755a1989ff6c14.jpg",
-        followed: true,
-        fullName: "Vlad",
-        status: "Spierdałaj",
-        location: { city: "Moscow", country: "Russia" },
-      },
-      {
-        id: 3,
-        icon: "https://cdnn21.img.ria.ru/images/07e5/03/11/1601687968_0:93:1280:813_1920x0_80_0_0_fb747e778aea631288755a1989ff6c14.jpg",
-        followed: false,
-        fullName: "Angelika",
-        status: "Fuck off",
-        location: { city: "Luhansk", country: "Ukraine" },
-      },
-      {
-        id: 4,
-        icon: "https://cdnn21.img.ria.ru/images/07e5/03/11/1601687968_0:93:1280:813_1920x0_80_0_0_fb747e778aea631288755a1989ff6c14.jpg",
-        followed: false,
-        fullName: "Lisa",
-        status: "LOL",
-        location: { city: "Gdynia", country: "Poland" },
-      },
-    ]);
-  }
+  const getUsers = () => {
+    if (users.length === 0) {
+      axios
+        .get("https://social-network.samuraijs.com/api/1.0/users")
+        .then((response) => {
+          setUsers(response.data.items);
+        });
+    }
+  };
   return (
     <div>
+      <button onClick={getUsers}>Get Users</button>
       {users.map((user) => (
-        <div key={user}>
+        <div key={user.id}>
           <span>
             <div>
-              <img src={user.icon} alt="" className={styles.userPhoto} />
+              <img
+                src={user.photos.small || avatarMock}
+                alt=""
+                className={styles.userPhoto}
+              />
             </div>
             <div>
               {user.followed ? (
@@ -68,12 +48,12 @@ const Users = ({ users, follow, unfollow, setUsers }) => {
           </span>
           <span>
             <span>
-              <div>{user.fullName} </div>
+              <div>{user.name} </div>
               <div>{user.status}</div>
             </span>
             <span>
-              <div>{user.location.country}</div>
-              <div>{user.location.city}</div>
+              {/* <div>{user.location.country}</div> 
+              <div>{user.location.city}</div> */}
             </span>
           </span>
         </div>
