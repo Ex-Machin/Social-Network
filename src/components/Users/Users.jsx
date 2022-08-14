@@ -4,9 +4,8 @@ import styles from "./users.module.css";
 import avatarMock from "../../assets/images/avatar.png";
 
 class Users extends React.Component {
-  constructor(props) {
-    super(props);
-    alert('new')
+
+  componentDidMount() {
     axios
       .get("https://social-network.samuraijs.com/api/1.0/users")
       .then((response) => {
