@@ -4,7 +4,7 @@ import DialogItem from "./DialogItem/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Messages/Messages";
 
-const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBodyCreator }) => {
+const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
   let newMessageElement = createRef();
   const onSendMessageClick = () => {
     sendMessage();
@@ -12,7 +12,7 @@ const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBodyCreator }) => {
 
   const onNewMessageChange = (e) => {
     let body = e.target.value;
-    updateNewMessageBodyCreator(body);
+    updateNewMessageBody(body);
   };
 
   return (

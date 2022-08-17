@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./users.module.css";
 import avatarMock from "../../assets/images/avatar.png";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { usersAPI } from "../../api/api";
 
 const Users = (props) => {
   let numberOfPages = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -46,21 +46,11 @@ const Users = (props) => {
               {user.followed ? (
                 <button
                   onClick={() => {
-                    axios
-                      .delete(
-                        `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                        {
-                          withCredentials: true,
-                          headers: {
-                            "API-KEY": "5d8a7eff-a740-483e-8ca3-78892103be5c",
-                          },
-                        }
-                      )
-                      .then((response) => {
-                        if (response.data.resultCode === 0) {
-                          props.unfollow(user.id);
-                        }
-                      });
+                    usersAPI.unfollow(user.id).then((data) => {
+                      if (data.resultCode === 0) {
+                        props.unfollow(user.id);
+                      }
+                    });
                   }}
                 >
                   Unfollow
@@ -68,22 +58,11 @@ const Users = (props) => {
               ) : (
                 <button
                   onClick={() => {
-                    axios
-                      .post(
-                        `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                        {},
-                        {
-                          withCredentials: true,
-                          headers: {
-                            "API-KEY": "5d8a7eff-a740-483e-8ca3-78892103be5c",
-                          },
-                        }
-                      )
-                      .then((response) => {
-                        if (response.data.resultCode === 0) {
-                          props.follow(user.id);
-                        }
-                      });
+                    usersAPI.follow(user.id).then((data) => {
+                      if (data.resultCode === 0) {
+                        props.follow(user.id);
+                      }
+                    });
                   }}
                 >
                   Follow
