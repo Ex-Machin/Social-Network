@@ -1,10 +1,16 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { createRef } from "react/cjs/react.production.min";
 import DialogItem from "./DialogItem/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Messages/Messages";
 
-const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
+const Dialogs = ({
+  dialogsPage,
+  isAuth,
+  sendMessage,
+  updateNewMessageBody,
+}) => {
   let newMessageElement = createRef();
   const onSendMessageClick = () => {
     sendMessage();
@@ -15,7 +21,9 @@ const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
     updateNewMessageBody(body);
   };
 
-  return (
+  return !isAuth ? (
+    <Navigate to="/login" />
+  ) : (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
         {dialogsPage.dialogs.map((item) => {

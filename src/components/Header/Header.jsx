@@ -1,7 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
-import userPhoto from "../../assets/images/avatar.png";
 
 const Header = (props) => {
 
@@ -11,7 +9,7 @@ const Header = (props) => {
         src="https://upload.wikimedia.org/wikipedia/commons/1/1e/RPC-JP_Logo.png"
         alt=""
       />
-      <div className={s.loginBlock}>{props.login && "Login"}</div>
+      <div className={s.loginBlock}>{props.login ? props.login : "Login"}</div>
     </header>
   );
 };

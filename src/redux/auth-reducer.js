@@ -1,5 +1,4 @@
 import { usersAPI } from "../api/api";
-import { setUserProfile } from "./profileReducer";
 
 const SET_USER_DATA = "SET_USER_DATA";
 
