@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { getUser, setUserProfile } from "../../redux/profileReducer";
+import { getUser } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
@@ -35,6 +35,6 @@ function withRouter(Component) {
   return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, { setUserProfile, getUser })(
+export default connect(mapStateToProps, { getUser })(
   withRouter(ProfileContainer)
 );

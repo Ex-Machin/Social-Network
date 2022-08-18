@@ -34,9 +34,6 @@ export const getCurrentUser = () => {
       if (data.resultCode === 0) {
         let { id, login, email } = data.data;
         dispatch(setAuthUserData(id, email, login));
-        usersAPI.getUser(id).then((data) => {
-          dispatch(setUserProfile(data));
-        });
       }
     });
   };

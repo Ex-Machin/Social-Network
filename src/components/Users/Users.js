@@ -12,19 +12,20 @@ const Users = (props) => {
     pages.push(i);
     if (i === 20) break;
   }
+  console.log("props", props);
   return (
     <div>
       <div>
-        {pages.map((p) => {
+        {pages.map((page) => {
           return (
             <span
-              className={props.currentPage === p && styles.selectedPage}
+              className={props.currentPage === page && styles.selectedPage}
               style={{ margin: "10px", cursor: "pointer" }}
               onClick={() => {
-                props.onPageChanged(p);
+                props.onPageChanged(page);
               }}
             >
-              {p}
+              {page}
             </span>
           );
         })}
