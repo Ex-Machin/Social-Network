@@ -5,12 +5,7 @@ import DialogItem from "./DialogItem/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Messages/Messages";
 
-const Dialogs = ({
-  dialogsPage,
-  isAuth,
-  sendMessage,
-  updateNewMessageBody,
-}) => {
+const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
   let newMessageElement = createRef();
   const onSendMessageClick = () => {
     sendMessage();
@@ -21,9 +16,7 @@ const Dialogs = ({
     updateNewMessageBody(body);
   };
 
-  return !isAuth ? (
-    <Navigate to="/login" />
-  ) : (
+  return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
         {dialogsPage.dialogs.map((item) => {

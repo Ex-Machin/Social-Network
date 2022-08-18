@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
 import {
   follow,
   unfollow,
@@ -15,7 +16,7 @@ class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
-  
+
   onPageChanged = (page) => {
     this.props.getUsers(page, this.props.pageSize);
   };
@@ -54,11 +55,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
+export default WithAuthRedirect(connect(mapStateToProps, {
   follow,
   unfollow,
   setCurrentPage,
   setTotalUsersCount,
   toggleFollowingProgress,
   getUsers,
-})(UsersContainer);
+})(UsersContainer));
