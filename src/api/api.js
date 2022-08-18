@@ -17,7 +17,7 @@ export const usersAPI = {
       });
   },
   getCurrentUser: () => {
-    return instance.get(`me`).then((response) => {
+    return instance.get(`auth/me`).then((response) => {
       return response.data;
     });
   },
