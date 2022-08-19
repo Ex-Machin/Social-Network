@@ -1,5 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import { createRef } from "react/cjs/react.production.min";
 import DialogItem from "./DialogItem/Dialog";
 import s from "./Dialogs.module.css";
