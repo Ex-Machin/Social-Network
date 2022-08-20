@@ -1,34 +1,32 @@
 import React from "react";
-import { createRef } from "react/cjs/react.production.min";
+import { Field, reduxForm } from "redux-form";
 import s from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 
-const MyPosts = ({ updateNewPostText, postsData, addPost, newPostText }) => {
-  let newPostElement = createRef();
+const MyPostForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <Field name={"post"} component={"textarea"} placeholder={"Bro"} />
+      <button type="submit">Add Post</button>
+      <button>Remove</button>
+    </form>
+  );
+};
 
-  const onAddPost = () => {
-    addPost();
-  };
+const LoginReduxForm = reduxForm({
+  form: "posts",
+})(MyPostForm);
 
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
-    updateNewPostText(text);
+const MyPosts = ({ postsData, addPost }) => {
+
+  const onSubmit = (values) => {
+    addPost(values.post);
   };
 
   return (
     <div className={s.postBlock}>
       <h3>My Posts</h3>
-      <div>
-        <textarea
-          onChange={onPostChange}
-          ref={newPostElement}
-          value={newPostText}
-        />
-      </div>
-      <div>
-        <button onClick={onAddPost}>Add Post</button>
-        <button>Remove</button>
-      </div>
+      <LoginReduxForm onSubmit={onSubmit} />
       <div className={s.posts}>
         {postsData.map((item) => {
           return (

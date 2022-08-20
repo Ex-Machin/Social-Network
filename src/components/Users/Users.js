@@ -12,7 +12,6 @@ const Users = (props) => {
     pages.push(i);
     if (i === 20) break;
   }
-  console.log("props", props);
   return (
     <div>
       <div>

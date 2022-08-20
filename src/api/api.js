@@ -44,7 +44,6 @@ export const profileAPI = {
     });
   },
   getStatus: (id) => {
-    console.log("profileAPI id :>> ", id);
     return instance.get(`profile/status/${id}`).then((response) => {
       return response.data;
     });
