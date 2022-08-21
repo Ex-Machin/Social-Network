@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -10,7 +11,6 @@ let initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  console.log("action :>> ", action);
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -39,14 +39,16 @@ export const getCurrentUser = () => {
   };
 };
 
-export const login = (email, password, rememberMe) => {
-  return (dispatch) => {
-    authAPI.login(email, password, rememberMe).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(getCurrentUser());
-      }
-    });
-  };
+export const login = (email, password, rememberMe) => (dispatch) => {
+  authAPI.login(email, password, rememberMe).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(getCurrentUser());
+    } else {
+      const message =
+        data.messages.length > 0 ? data.messages[0] : "Unhandled error";
+      dispatch(stopSubmit("login", { _error: message }));
+    }
+  });
 };
 
 export const logout = () => {
