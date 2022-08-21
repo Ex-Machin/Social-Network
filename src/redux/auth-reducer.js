@@ -27,16 +27,13 @@ export const setAuthUserData = (email, userId, login, isAuth) => ({
   payload: { email, userId, login, isAuth },
 });
 
-export const getCurrentUser = () => {
-  return (dispatch) => {
-    authAPI.getCurrentUser().then((payload) => {
-      if (payload.resultCode === 0) {
-        console.log("payload :>> ", payload);
-        let { email, id, login } = payload.data;
-        dispatch(setAuthUserData(email, id, login, true));
-      }
-    });
-  };
+export const getCurrentUser = () => (dispatch) => {
+  return authAPI.getCurrentUser().then((payload) => {
+    if (payload.resultCode === 0) {
+      let { email, id, login } = payload.data;
+      dispatch(setAuthUserData(email, id, login, true));
+    }
+  });
 };
 
 export const login = (email, password, rememberMe) => (dispatch) => {
