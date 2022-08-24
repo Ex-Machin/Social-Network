@@ -2,6 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import {
+  getCurrentPageSelector,
+  getFollowingInProgressSelector, getIsFetchinSelector, getPageSizeSelector,
+  getTotalUsersCountSelector,
+  getUsersSelector
+} from "../../redux/user-selector";
+import {
   follow,
   getUsers,
   setCurrentPage,
@@ -46,12 +52,12 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getUsersSelector(state),
+    pageSize: getPageSizeSelector(state),
+    totalUsersCount: getTotalUsersCountSelector(state),
+    currentPage: getCurrentPageSelector(state),
+    isFetching: getIsFetchinSelector(state),
+    followingInProgress: getFollowingInProgressSelector(state),
   };
 };
 
