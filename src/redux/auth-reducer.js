@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = "auth/SET_USER_DATA";
 
 let initialState = {
   userId: null,
@@ -27,34 +27,32 @@ export const setAuthUserData = (email, userId, login, isAuth) => ({
   payload: { email, userId, login, isAuth },
 });
 
-export const getCurrentUser = () => (dispatch) => {
-  return authAPI.getCurrentUser().then((payload) => {
-    if (payload.resultCode === 0) {
-      let { email, id, login } = payload.data;
-      dispatch(setAuthUserData(email, id, login, true));
-    }
-  });
+export const getCurrentUser = () => async (dispatch) => {
+  let response = await authAPI.getCurrentUser();
+
+  if (response.resultCode === 0) {
+    let { email, id, login } = response.data;
+    dispatch(setAuthUserData(email, id, login, true));
+  }
 };
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-  authAPI.login(email, password, rememberMe).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(getCurrentUser());
-    } else {
-      const message =
-        data.messages.length > 0 ? data.messages[0] : "Unhandled error";
-      dispatch(stopSubmit("login", { _error: message }));
-    }
-  });
+export const login = (email, password, rememberMe) => async (dispatch) => {
+  const data = await authAPI.login(email, password, rememberMe);
+  if (data.resultCode === 0) {
+    dispatch(getCurrentUser());
+  } else {
+    const message =
+      data.messages.length > 0 ? data.messages[0] : "Unhandled error";
+    dispatch(stopSubmit("login", { _error: message }));
+  }
 };
 
 export const logout = () => {
-  return (dispatch) => {
-    authAPI.logout().then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
-      }
-    });
+  return async (dispatch) => {
+    const data = await authAPI.logout();
+    if (data.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false));
+    }
   };
 };
 

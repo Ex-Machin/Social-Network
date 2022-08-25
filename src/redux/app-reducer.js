@@ -1,6 +1,6 @@
 import { getCurrentUser } from "./auth-reducer";
 
-const SET_INIT = "SET_INIT";
+const SET_INIT = "app/SET_INIT";
 
 let initialState = {
   initialized: false,
@@ -30,27 +30,5 @@ export const initialize = () => {
     });
   };
 };
-
-// export const login = (email, password, rememberMe) => (dispatch) => {
-//   authAPI.login(email, password, rememberMe).then((data) => {
-//     if (data.resultCode === 0) {
-//       dispatch(getCurrentUser());
-//     } else {
-//       const message =
-//         data.messages.length > 0 ? data.messages[0] : "Unhandled error";
-//       dispatch(stopSubmit("login", { _error: message }));
-//     }
-//   });
-// };
-
-// export const logout = () => {
-//   return (dispatch) => {
-//     authAPI.logout().then((data) => {
-//       if (data.resultCode === 0) {
-//         dispatch(setAuthUserData(null, null, null, false));
-//       }
-//     });
-//   };
-// };
 
 export default appReducer;

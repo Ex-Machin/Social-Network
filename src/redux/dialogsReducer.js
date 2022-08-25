@@ -1,4 +1,4 @@
-let SEND_MESSAGE = "SEND-MESSAGE";
+let SEND_MESSAGE = "dialogs/SEND-MESSAGE";
 
 let initialState = {
   messages: [
