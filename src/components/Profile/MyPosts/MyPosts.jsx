@@ -30,6 +30,7 @@ const LoginReduxForm = reduxForm({
 })(MyPostForm);
 
 const MyPosts = ({ postsData, addPost }) => {
+
   const onSubmit = (values) => {
     addPost(values.post);
   };
@@ -39,7 +40,7 @@ const MyPosts = ({ postsData, addPost }) => {
       <h3>My Posts</h3>
       <LoginReduxForm onSubmit={onSubmit} />
       <div className={s.posts}>
-        {postsData.map((item) => {
+        {[...postsData].reverse().map((item) => {
           return (
             <Post
               message={item.message}
