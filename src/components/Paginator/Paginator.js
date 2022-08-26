@@ -3,17 +3,9 @@ import styles from "./Paginator.module.css";
 import cn from "classnames";
 
 let Paginator = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
-    console.table({
-      totalItemsCount,
-      pageSize,
-      currentPage,
-      onPageChanged,
-      portionSize,
-    });
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
     let pages = [];
-    console.log("pages :>> ", pages);
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
