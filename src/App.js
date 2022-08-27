@@ -21,8 +21,20 @@ const ProfileContainer = React.lazy(() =>
 const Login = React.lazy(() => import("./components/Login/Login"));
 
 class App extends React.Component {
+
+  catchAllUnhandledErrors = (promiseRejectionValue) =>{
+    console.warn(promiseRejectionValue);
+  }
+
   componentDidMount() {
     this.props.initialize();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  }
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnhandledErrors
+    );
   }
 
   render() {
@@ -36,6 +48,7 @@ class App extends React.Component {
           <div className="app-wrapper-content">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
+                <Route path="/" element={<ProfileContainer />} />
                 <Route path="/dialogs" element={<DialogsContainer />} />
                 <Route path="/profile/:id" element={<ProfileContainer />} />
                 <Route path="/profile" element={<ProfileContainer />} />
@@ -44,6 +57,7 @@ class App extends React.Component {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/users" element={<UsersContainer />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="*" element={<div>Not Found</div>} />
               </Routes>
             </Suspense>
           </div>

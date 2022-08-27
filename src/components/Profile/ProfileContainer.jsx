@@ -20,8 +20,10 @@ class ProfileContainer extends React.Component {
         this.props.navigate("/login", { replace: true });
       }
     }
-    this.props.getUser(userId);
-    this.props.getStatus(userId);
+    if (userId) {
+      this.props.getUser(userId);
+      this.props.getStatus(userId);
+    }
   }
 
   componentDidMount() {
