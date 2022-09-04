@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ProfileType } from "../types/types";
 
 const instance = axios.create({
   withCredentials: true,
@@ -16,16 +17,16 @@ export const usersAPI = {
         return response.data;
       });
   },
-  getUser(id) {
+  getUser(id: number) {
     console.warn("Obsolete method. Please profileAPI object");
     return profileAPI.getUser(id);
   },
-  follow(id) {
+  follow(id: number) {
     return instance.post(`follow/${id}`).then((response) => {
       return response.data;
     });
   },
-  unfollow(id) {
+  unfollow(id: number) {
     return instance.delete(`follow/${id}`).then((response) => {
       return response.data;
     });
@@ -33,22 +34,22 @@ export const usersAPI = {
 };
 
 export const profileAPI = {
-  getUser(id) {
+  getUser(id: number) {
     return instance.get(`profile/${id}`).then((response) => {
       return response.data;
     });
   },
-  getStatus(id) {
+  getStatus(id: number) {
     return instance.get(`profile/status/${id}`).then((response) => {
       return response.data;
     });
   },
-  updateStatus(status) {
+  updateStatus(status: string): any {
     return instance.put("profile/status", { status }).then((response) => {
       return response.data;
     });
   },
-  savePhoto(photo) {
+  savePhoto(photo: any): any {
     const formData = new FormData();
     formData.append("image", photo);
     return instance
@@ -61,7 +62,7 @@ export const profileAPI = {
         return response.data;
       });
   },
-  saveProfile(profile) {
+  saveProfile(profile: ProfileType) {
     return instance.put("profile", profile).then((response) => {
       return response.data;
     });
@@ -74,7 +75,7 @@ export const authAPI = {
       return response.data;
     });
   },
-  login(email, password, rememberMe = false, captcha) {
+  login(email: string, password: string, rememberMe = false, captcha: string) {
     return instance
       .post(`auth/login`, { email, password, rememberMe, captcha })
       .then((response) => {

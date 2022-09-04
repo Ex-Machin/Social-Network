@@ -2,11 +2,19 @@ import { getCurrentUser } from "./auth-reducer";
 
 const SET_INIT = "app/SET_INIT";
 
-let initialState = {
+type InitialStateType = {
+  initialized: boolean
+}
+
+let initialState: InitialStateType = {
   initialized: false,
 };
 
-const appReducer = (state = initialState, action) => {
+type InitActionType = {
+  type: typeof SET_INIT
+}
+
+const appReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case SET_INIT:
       return {
@@ -18,12 +26,12 @@ const appReducer = (state = initialState, action) => {
   }
 };
 
-export const setInit = () => ({
+export const setInit = (): InitActionType => ({
   type: SET_INIT,
 });
 
 export const initialize = () => {
-  return (dispatch) => {
+  return (dispatch: (Function)) => {
     const promise = dispatch(getCurrentUser());
     Promise.all([promise]).then(() => {
       dispatch(setInit());
