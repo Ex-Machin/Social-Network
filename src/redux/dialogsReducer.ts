@@ -1,11 +1,11 @@
 let SEND_MESSAGE = "dialogs/SEND-MESSAGE";
 
-type DialogsType = {
+type MessageType = {
   id: number;
   message: string;
 };
 
-type MessageType = {
+type DialogsType = {
   id: number;
   name: string;
 };
@@ -15,14 +15,14 @@ let initialState = {
     { id: 1, message: "hi" },
     { id: 2, message: "What da fuck!" },
     { id: 3, message: "Esketit" },
-  ] as Array<DialogsType>,
+  ] as Array<MessageType>,
   dialogs: [
     { id: 1, name: "Lisa" },
     { id: 2, name: "Vika" },
     { id: 3, name: "Lilia" },
     { id: 4, name: "Vlad" },
     { id: 5, name: "Dima" },
-  ] as Array<MessageType>,
+  ] as Array<DialogsType>,
 };
 
 export type initialStateType = typeof initialState;
