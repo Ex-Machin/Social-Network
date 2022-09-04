@@ -1,3 +1,6 @@
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "../redux/redux-store";
+
 export type PostType = {
   id: number;
   message: string;
@@ -30,10 +33,9 @@ export type ProfileType = {
 };
 
 export type UserType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
-  }
-  
+  id: number;
+  name: string;
+  status: string;
+  photos: PhotosType;
+  followed: boolean;
+};

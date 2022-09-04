@@ -17,7 +17,7 @@ export const usersAPI = {
         return response.data;
       });
   },
-  getUser(id: number) {
+  getUser(id: number): Promise<any> {
     console.warn("Obsolete method. Please profileAPI object");
     return profileAPI.getUser(id);
   },

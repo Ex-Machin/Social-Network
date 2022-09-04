@@ -14,7 +14,9 @@ type InitActionType = {
   type: typeof SET_INIT
 }
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
+type ActionsTypes = InitActionType
+
+const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
     case SET_INIT:
       return {
@@ -31,7 +33,7 @@ export const setInit = (): InitActionType => ({
 });
 
 export const initialize = () => {
-  return (dispatch: (Function)) => {
+  return (dispatch: any) => {
     const promise = dispatch(getCurrentUser());
     Promise.all([promise]).then(() => {
       dispatch(setInit());

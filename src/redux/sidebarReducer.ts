@@ -24,10 +24,7 @@ let initialState = [
   } as SideProfileType,
 ];
 
-const sidebarReducer = (
-  state = initialState,
-  action: any
-): InitialStateType => {
+const sidebarReducer = (state = initialState): InitialStateType => {
   return state;
 };
 

@@ -1,6 +1,8 @@
 import { stopSubmit } from "redux-form";
+import { ThunkAction } from "redux-thunk";
 import { profileAPI, usersAPI } from "../api/api";
 import { PhotosType, PostType, ProfileType } from "../types/types";
+import { AppStateType } from "./redux-store";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
@@ -15,12 +17,19 @@ let initialState = {
   ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: "",
-  post: ""
+  post: "",
 };
 
-export type initialStateType = typeof initialState
+export type initialStateType = typeof initialState;
 
-const profileReducer = (state = initialState, action: any) => {
+type ActionsTypes =
+  | addPostType
+  | DeletePostType
+  | SetUserProfileType
+  | SetStatusType
+  | SavePhotoSuccessType;
+
+const profileReducer = (state = initialState, action: ActionsTypes) => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -62,33 +71,32 @@ const profileReducer = (state = initialState, action: any) => {
 };
 
 type addPostType = {
-  type: typeof ADD_POST
-  post: string
-}
-
+  type: typeof ADD_POST;
+  post: string;
+};
 
 export const addPost = (post: string): addPostType => ({
   type: ADD_POST,
   post,
 });
 
-function lowerFirstCharakter(string : string) : string {
+function lowerFirstCharakter(string: string): string {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
 type DeletePostType = {
-  type: typeof DELETE_POST
-  id: number
-}
-export const deletePost = (id: number):DeletePostType => ({
+  type: typeof DELETE_POST;
+  id: number;
+};
+export const deletePost = (id: number): DeletePostType => ({
   type: DELETE_POST,
   id,
 });
 
 type SetUserProfileType = {
-  type: typeof SET_USER_PROFILE
-  profile: ProfileType
-}
+  type: typeof SET_USER_PROFILE;
+  profile: ProfileType;
+};
 
 export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({
   type: SET_USER_PROFILE,
@@ -96,9 +104,9 @@ export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({
 });
 
 type SetStatusType = {
-  type: typeof SET_STATUS,
-  status: string
-}
+  type: typeof SET_STATUS;
+  status: string;
+};
 
 export const setStatus = (status: string): SetStatusType => ({
   type: SET_STATUS,
@@ -106,33 +114,40 @@ export const setStatus = (status: string): SetStatusType => ({
 });
 
 type SavePhotoSuccessType = {
-  type: typeof SAVE_PHOTO_SUCCESS
-  photos: PhotosType
-}
+  type: typeof SAVE_PHOTO_SUCCESS;
+  photos: PhotosType;
+};
 
-export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType  => ({
+export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({
   type: SAVE_PHOTO_SUCCESS,
   photos,
 });
 
-export const getUser = (id: number) => {
-  return (dispatch: any) => {
+type ThunkType = ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionsTypes
+>;
+
+export const getUser = (id: number): ThunkType => {
+  return async (dispatch) => {
     usersAPI.getUser(id).then((data) => {
       dispatch(setUserProfile(data));
     });
   };
 };
 
-export const getStatus = (id: number) => {
-  return async (dispatch: any) => {
+export const getStatus = (id: number): ThunkType => {
+  return async (dispatch, getState) => {
     const data = await profileAPI.getStatus(id);
 
     dispatch(setStatus(data));
   };
 };
 
-export const updateStatus = (status: string) => {
-  return async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType => {
+  return async (dispatch) => {
     try {
       const data = profileAPI.updateStatus(status);
 
@@ -145,14 +160,15 @@ export const updateStatus = (status: string) => {
   };
 };
 
-export const savePhoto = (file: any) => {
-  return async (dispatch: any) => {
+export const savePhoto = (file: any): ThunkType => {
+  return async (dispatch) => {
     const data = profileAPI.savePhoto(file);
     if (data.result_code === 0) {
       dispatch(savePhotoSuccess(data.photos));
     }
   };
 };
+
 export const saveProfile = (profile: ProfileType) => {
   return async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
