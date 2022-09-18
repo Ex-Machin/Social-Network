@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { ProfileType } from "../types/types";
 
 const instance = axios.create({
@@ -17,7 +17,7 @@ export const usersAPI = {
         return response.data;
       });
   },
-  getUser(id: number): Promise<any> {
+  getUser(id: number) {
     console.warn("Obsolete method. Please profileAPI object");
     return profileAPI.getUser(id);
   },
@@ -44,12 +44,12 @@ export const profileAPI = {
       return response.data;
     });
   },
-  updateStatus(status: string): any {
+  updateStatus(status: string) {
     return instance.put("profile/status", { status }).then((response) => {
       return response.data;
     });
   },
-  savePhoto(photo: any): any {
+  savePhoto(photo: any) {
     const formData = new FormData();
     formData.append("image", photo);
     return instance
@@ -69,15 +69,37 @@ export const profileAPI = {
   },
 };
 
+type MeResponseType = {
+  data: { id: number; email: string; login: string };
+  resultCode: ResultCodeEnum;
+  messages: string[];
+};
+
+type LoginResponseType = {
+  data: { userId: number };
+  resultCode: ResultCodeEnum | ResultCodeForCaptcha
+  messages: string[];
+};
+
+
+export enum ResultCodeEnum {
+  Succes = 0,
+  Error = 1,
+}
+
+export enum ResultCodeForCaptcha {
+  CaptchaIsRequired = 10,
+}
+
 export const authAPI = {
   getCurrentUser() {
-    return instance.get(`auth/me`).then((response) => {
+    return instance.get<MeResponseType>(`auth/me`).then((response) => {
       return response.data;
     });
   },
   login(email: string, password: string, rememberMe = false, captcha: string) {
     return instance
-      .post(`auth/login`, { email, password, rememberMe, captcha })
+      .post<LoginResponseType>(`auth/login`, { email, password, rememberMe, captcha })
       .then((response) => {
         return response.data;
       });
@@ -96,5 +118,3 @@ export const securityAPI = {
     });
   },
 };
-
-

@@ -149,7 +149,7 @@ export const getStatus = (id: number): ThunkType => {
 export const updateStatus = (status: string): ThunkType => {
   return async (dispatch) => {
     try {
-      const data = profileAPI.updateStatus(status);
+      const data = await profileAPI.updateStatus(status);
 
       if (data.result_code === 0) {
         dispatch(setStatus(status));
@@ -162,7 +162,7 @@ export const updateStatus = (status: string): ThunkType => {
 
 export const savePhoto = (file: any): ThunkType => {
   return async (dispatch) => {
-    const data = profileAPI.savePhoto(file);
+    const data = await profileAPI.savePhoto(file);
     if (data.result_code === 0) {
       dispatch(savePhotoSuccess(data.photos));
     }
