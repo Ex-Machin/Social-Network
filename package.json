@@ -1,6 +1,7 @@
 {
   "name": "social_credit_system",
   "version": "0.1.0",
+  "node": "14.21.3",
   "private": true,
   "homepage": "https://ex-machin.github.io/React/",
   "dependencies": {

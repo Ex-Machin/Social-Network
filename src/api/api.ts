@@ -49,7 +49,7 @@ export const profileAPI = {
       return response.data;
     });
   },
-  savePhoto(photo: any) {
+  savePhoto(photo: Blob) {
     const formData = new FormData();
     formData.append("image", photo);
     return instance
@@ -118,3 +118,5 @@ export const securityAPI = {
     });
   },
 };
+
+authAPI.getCurrentUser().then()
