@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "node": "14.21.3",
   "private": true,
-  "homepage": "https://ex-machin.github.io/React/",
+  "homepage": "https://ex-machin.github.io/Social-Network/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
