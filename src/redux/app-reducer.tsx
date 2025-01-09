@@ -1,24 +1,21 @@
+import { ThunkAction } from "redux-thunk";
 import { getCurrentUser } from "./auth-reducer";
+import { AppStateType, InferActionsTypes } from "./redux-store";
+import { Action } from "redux";
 
-const SET_INIT = "app/SET_INIT";
-
-type InitialStateType = {
-  initialized: boolean
-}
-
-let initialState: InitialStateType = {
+let initialState = {
   initialized: false,
 };
 
-type InitActionType = {
-  type: typeof SET_INIT
+export const actions = {
+  initialize: () => ({type: "app/SET_INIT"})
 }
+type ActionsType = InferActionsTypes<typeof actions>
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
-type ActionsTypes = InitActionType
-
-const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const appReducer = (state = initialState, action: ActionsType): typeof initialState => {
   switch (action.type) {
-    case SET_INIT:
+    case "app/SET_INIT":
       return {
         ...state,
         initialized: true,
@@ -28,15 +25,11 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
   }
 };
 
-export const setInit = (): InitActionType => ({
-  type: SET_INIT,
-});
-
 export const initialize = () => {
   return (dispatch: any) => {
     const promise = dispatch(getCurrentUser());
     Promise.all([promise]).then(() => {
-      dispatch(setInit());
+      dispatch(actions.initialize());
     });
   };
 };

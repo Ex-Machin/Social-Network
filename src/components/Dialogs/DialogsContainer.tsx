@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
-import { initialStateType, sendMessage } from "../../redux/dialogsReducer";
+import { initialStateType, actions } from "../../redux/dialogsReducer";
 import { AppStateType } from "../../redux/redux-store";
 import Dialogs from "./Dialogs";
 
@@ -23,9 +23,15 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   };
 };
 
+let MapDispatchProps = (dispatch: any) => {
+  return {
+    sendMessage: (newMessageBody: any) => {
+      dispatch(actions.sendMessageCreator(newMessageBody))
+    }
+  }
+}
+
 export default compose(
   WithAuthRedirect,
-  connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
-    sendMessage,
-  })
+  connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, MapDispatchProps)
 )(Dialogs);

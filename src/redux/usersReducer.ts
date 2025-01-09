@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { usersAPI } from "../api/api";
+import { usersAPI } from "../api/users-api";
 import { UserType } from "../types/types";
 import { updateObjectInArray } from "../utils/objects-helper";
-import { AppStateType, InferActionsTypes } from "./redux-store";
+import { BaseThunkType } from "./app-reducer";
+import { InferActionsTypes } from "./redux-store";
 
 let initialState = {
   users: [] as Array<UserType>,
@@ -13,8 +13,6 @@ let initialState = {
   isFetching: false as boolean,
   followingInProgress: [] as Array<number>, // array of users id
 };
-
-type InitialStateType = typeof initialState;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
@@ -59,7 +57,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
   }
 };
 
-type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
   followSuccess:(userId: number) => ({type: "users/FOLLOW", userId} as const),
@@ -70,14 +67,6 @@ export const actions = {
   toggleIsFetching:(isFetching: boolean) => ({type: "users/TOGGLE_IS_FETCHING", isFetching} as const),
   toggleFollowingProgress:(isFetching: boolean, userId: number) => ({type: "users/TOGGLE_IS_FOLLOWING_PROGRESS", isFetching, userId} as const),
 }
-
-
-type ThunkType = ThunkAction<
-  Promise<void>,
-  AppStateType,
-  unknown,
-  ActionsTypes
->;
 
 export const getUsers = (
   page: number,
@@ -132,3 +121,7 @@ export const unfollow = (id: number):ThunkType => {
 };
 
 export default usersReducer;
+
+type ThunkType = BaseThunkType<ActionsTypes>
+type ActionsTypes = InferActionsTypes<typeof actions>
+type InitialStateType = typeof initialState;
