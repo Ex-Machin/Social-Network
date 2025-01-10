@@ -5,11 +5,12 @@ import { login } from "../../redux/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import { required } from "../../utils/validators/validators";
 import styles from '../FormsControl/FormControls.module.css';
-import { createField, Input } from "../FormsControl/FormsControl";
+import { createField, GetStringKeys, Input } from "../FormsControl/FormsControl";
 
 type LoginFormOwnProps = {
   captchaUrl: string | null
 }
+type LoginFormOwnPropsKeys = GetStringKeys<LoginFormOwnProps>
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps> = ({ handleSubmit, error, captchaUrl }) => {
   return (
@@ -46,8 +47,6 @@ type LoginFormValuesType = {
   password: string
   email: string
 }
-
-type LoginFormOwnPropsKeys = Extract<keyof LoginFormValuesType, string>
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
   const onSubmit = ({ email, password, rememberMe, captcha }: any) => {

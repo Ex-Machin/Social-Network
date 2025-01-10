@@ -9,29 +9,13 @@ type MapStatePropsType = {
   dialogsPage: initialStateType
 }
 
-type MapDispatchPropsType = {
-  sendMessage: (newMessageBody: string) => void
-}
-
-type OwnPropsType = {
-
-}
-
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     dialogsPage: state.dialogsPage,
   };
 };
 
-let MapDispatchProps = (dispatch: any) => {
-  return {
-    sendMessage: (newMessageBody: any) => {
-      dispatch(actions.sendMessageCreator(newMessageBody))
-    }
-  }
-}
-
-export default compose(
+export default compose<React.ComponentType>(
   WithAuthRedirect,
-  connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, MapDispatchProps)
+  connect(mapStateToProps, {...actions})
 )(Dialogs);

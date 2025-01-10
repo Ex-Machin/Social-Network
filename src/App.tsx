@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Component, ComponentType, Suspense } from "react";
 import { connect } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { compose } from "redux";
@@ -12,6 +12,7 @@ import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import { withRouter } from "./hoc/withRouter";
 import { initialize } from "./redux/app-reducer";
+import { AppStateType } from "./redux/redux-store";
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogsContainer")
 );
@@ -20,10 +21,15 @@ const ProfileContainer = React.lazy(() =>
 );
 const Login = React.lazy(() => import("./components/Login/Login"));
 
-class App extends React.Component {
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initialize: () => void
+}
 
-  catchAllUnhandledErrors = (promiseRejectionValue) =>{
-    console.warn(promiseRejectionValue);
+class App extends Component<MapPropsType & DispatchPropsType> {
+
+  catchAllUnhandledErrors = () =>{
+    alert("Some error occured")
   }
 
   componentDidMount() {
@@ -69,11 +75,11 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   init: state.app.initialized,
 });
 
-export default compose(
+export default compose<ComponentType>(
   withRouter,
   connect(mapStateToProps, { initialize })
 )(App);

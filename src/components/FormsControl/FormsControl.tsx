@@ -55,3 +55,5 @@ export function createField<T extends string | undefined>(placeholder: string | 
     )
   )
 }
+
+export type GetStringKeys<T> =  Extract<keyof T, string>
