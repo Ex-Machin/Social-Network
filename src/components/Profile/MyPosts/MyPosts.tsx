@@ -32,12 +32,15 @@ const LoginReduxForm = reduxForm<AddPostFormValuesType>({
   form: "posts",
 })(MyPostForm);
 
-type MyPostsPropsType = {
+export type MapPropsType = {
   postsData: Array<PostType>
+}
+
+export type DispatchPropsType = {
   addPost: (newPostText: string) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = ({ postsData, addPost }) => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = ({ postsData, addPost }) => {
 
   const onSubmit = (values: AddPostFormValuesType) => {
     addPost(values.newPostText);

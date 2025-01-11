@@ -6,8 +6,8 @@ import ProfielDataForm from "./ProfielDataForm";
 import s from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-type PropsType = {
-  profile: ProfileType
+export type ProfileInfoPropsType = {
+  profile: ProfileType | null
   status: string
   updateStatus: (status: string) => void
   isOwner: boolean
@@ -15,7 +15,7 @@ type PropsType = {
   saveProfile: (profile: ProfileType) => Promise<any>
 }
 
-const ProfileInfo: React.FC<PropsType> = ({
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
   profile,
   status,
   updateStatus,

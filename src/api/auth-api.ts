@@ -3,7 +3,7 @@ import { instance, APIResponseType, ResultCodeEnum, ResultCodeForCaptcha } from 
 type MeResponseDataType = {
     id: number
     email: string
-    login: string
+    login: string | null
 };
 
 type LoginResponseDataType = {

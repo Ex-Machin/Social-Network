@@ -10,10 +10,35 @@ import {
   saveProfile
 } from "../../redux/profileReducer";
 import Profile from "./Profile";
+import { AppStateType } from "../../redux/redux-store";
+import { NavigateFunction } from "react-router-dom";
+import { ProfileType } from "../../types/types";
 
-class ProfileContainer extends React.Component {
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  getUser: (userId: number) => void
+  getStatus: (userId: number) => void
+  updateStatus: (text: string) => void
+  savePhoto: (file: File) => void
+  saveProfile: (profile: ProfileType) => Promise<any>
+}
+
+type PathParamsType = {
+  userId: string
+}
+
+type withRouterProps = {
+  location: Location;
+  navigate: NavigateFunction;
+  params: any;
+}
+
+type PropsType = MapPropsType & DispatchPropsType & withRouterProps & PathParamsType
+
+class ProfileContainer extends React.Component<PropsType> {
   refreshProfile() {
-    let userId = this.props.params.id;
+    let userId: number | null = +this.props.params.id;
     if (!userId) {
       userId = this.props.authorisedUserId;
       if (!userId) {
@@ -30,7 +55,7 @@ class ProfileContainer extends React.Component {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps: PropsType) {
     if (this.props.params.id !== prevProps.params.id) {
       this.refreshProfile();
     }
@@ -51,14 +76,14 @@ class ProfileContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authorisedUserId: state.auth.userId,
   isAuth: state.auth.isAuth,
 });
 
-export default compose(
+export default compose<React.ComponentType>(
   withRouter,
   connect(mapStateToProps, {
     getUser,

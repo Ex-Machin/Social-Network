@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
+import { AppStateType } from "../../redux/redux-store";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     friendsData: state.sidebar,
   };

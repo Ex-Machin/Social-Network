@@ -11,10 +11,9 @@ let initialState = {
   ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: "",
-  post: "",
 };
 
-const profileReducer = (state = initialState, action: ActionsType) => {
+const profileReducer = (state = initialState, action: ActionsType): any => {
   switch (action.type) {
     case "profile/ADD-POST":
       let newPost = {

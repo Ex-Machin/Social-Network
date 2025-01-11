@@ -2,7 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import s from "./Header.module.css";
 
-const Header = (props) => {
+export type MapHeaderPropsType = {
+  isAuth: boolean | null
+  login: string | null
+}
+
+export type DispatchHeaderPropsType = {
+  logout: () => void
+}
+
+const Header: React.FC<MapHeaderPropsType & DispatchHeaderPropsType> = (props) => {
   return (
     <header className={s.header}>
       <img

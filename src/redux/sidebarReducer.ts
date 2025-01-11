@@ -1,6 +1,6 @@
 export type InitialStateType = typeof initialState 
 
-type SideProfileType = {
+export type SideProfileType = {
   id: number
   name: string
   src: string

@@ -1,8 +1,13 @@
 import React from "react";
 import s from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
+import { SideProfileType } from "../../redux/sidebarReducer";
 
-const NavBar = ({ friendsData }) => {
+type PropsType = {
+  friendsData: SideProfileType[]
+}
+
+const NavBar: React.FC<PropsType> = ({ friendsData }) => {
   return (
     <nav className={s.nav}>
       <div>
