@@ -37,7 +37,7 @@ export const actions = {
 export const getCurrentUser = (): ThunkType => async (dispatch) => {
   let response = await authAPI.getCurrentUser();
 
-  if (response.resultCode === ResultCodeEnum.Succes) {
+  if (response.resultCode === ResultCodeEnum.Success) {
     let { email, id, login } = response.data;
     dispatch(actions.setAuthUserData(email, id, login, true));
   }
@@ -45,7 +45,7 @@ export const getCurrentUser = (): ThunkType => async (dispatch) => {
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
   const data = await authAPI.login(email, password, rememberMe, captcha);
-  if (data.resultCode === ResultCodeEnum.Succes) {
+  if (data.resultCode === ResultCodeEnum.Success) {
 
     // success, get auth data
     dispatch(getCurrentUser());
@@ -67,7 +67,7 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
 
 export const logout = (): ThunkType => async (dispatch) => {
   const data = await authAPI.logout();
-  if (data.resultCode === ResultCodeEnum.Succes) {
+  if (data.resultCode === ResultCodeEnum.Success) {
     dispatch(actions.setAuthUserData(null, null, null, false));
   }
 };

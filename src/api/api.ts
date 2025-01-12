@@ -15,7 +15,7 @@ export type GetItemsType<T> = {
 }
 
 export enum ResultCodeEnum {
-  Succes = 0,
+  Success = 0,
   Error = 1,
 }
 
