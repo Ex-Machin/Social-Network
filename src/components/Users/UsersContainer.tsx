@@ -6,9 +6,11 @@ import {
   getCurrentPageSelector,
   getFollowingInProgressSelector, getIsFetchinSelector, getPageSizeSelector,
   getTotalUsersCountSelector,
+  getUsersFilter,
   getUsersSelector
 } from "../../redux/user-selector";
 import {
+  FilterType,
   follow,
   getUsers,
   unfollow
@@ -28,13 +30,14 @@ type MapStatePropsType = {
   totalUsersCount: number
   users: Array<UserType>
   followingInProgress: Array<number>
+  filter: FilterType
 
 }
 
 type MapDispatchPropsType = {
   follow: (id: number) => void
   unfollow: (id: number) => void
-  getUsers: (currentPage: number, pageSize: number) => void
+  getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
 
 }
 
@@ -42,14 +45,20 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
-    const { currentPage, pageSize } = this.props
-    this.props.getUsers(currentPage, pageSize);
+    const { currentPage, pageSize, filter} = this.props
+    this.props.getUsers(currentPage, pageSize, filter);
   }
 
   onPageChanged = (page: number) => {
-    const { pageSize } = this.props;
-    this.props.getUsers(page, pageSize);
+    const { pageSize, filter } = this.props;
+    this.props.getUsers(page, pageSize, filter);
   };
+
+  onFilterChanged = (filter: FilterType) => {
+    const {pageSize} = this.props
+
+    this.props.getUsers(1, pageSize, filter)
+  }
 
   render() {
     return (
@@ -63,6 +72,7 @@ class UsersContainer extends React.Component<PropsType> {
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
+            onFilterChange={this.onFilterChanged}
             users={this.props.users}
             follow={this.props.follow}
             unfollow={this.props.unfollow}
@@ -82,6 +92,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     currentPage: getCurrentPageSelector(state),
     isFetching: getIsFetchinSelector(state),
     followingInProgress: getFollowingInProgressSelector(state),
+    filter: getUsersFilter(state)
   };
 };
 

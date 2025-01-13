@@ -11,3 +11,10 @@ export const updateObjectInArray = (
     return user;
   });
 };
+
+export const addQuery = (chainSign: '?' | "&", query: string, value: any) => {
+    if (value) {
+        return `${chainSign}${query}=${value}`
+    }
+    return ''
+}
