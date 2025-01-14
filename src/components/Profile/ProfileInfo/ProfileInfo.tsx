@@ -5,6 +5,11 @@ import Preloader from "../../Preloader/Preloader";
 import ProfielDataForm from "./ProfielDataForm";
 import s from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import { ThunkDispatch } from "redux-thunk";
+import { AppStateType } from "../../../redux/redux-store";
+import { AnyAction } from "redux";
+import { useDispatch } from "react-redux";
+import { saveProfile } from "../../../redux/profileReducer"
 
 export type ProfileInfoPropsType = {
   profile: ProfileType | null
@@ -12,7 +17,6 @@ export type ProfileInfoPropsType = {
   updateStatus: (status: string) => void
   isOwner: boolean
   savePhoto: (file: File) => void
-  saveProfile: (profile: ProfileType) => Promise<any>
 }
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
@@ -21,9 +25,10 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
   updateStatus,
   isOwner,
   savePhoto,
-  saveProfile,
 }) => {
   const [editMode, setEditMode] = useState(false);
+
+  const dispatch: ThunkDispatch<AppStateType, unknown, AnyAction> = useDispatch()
 
   if (!profile) {
     return <Preloader />;
@@ -35,7 +40,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
   };
   const onSubmit = (formData: ProfileType) => {
     // TODO: remove then
-    saveProfile(formData).then(() => setEditMode(false));
+    dispatch(saveProfile(formData)).then(() => setEditMode(false));
   };
 
   return (

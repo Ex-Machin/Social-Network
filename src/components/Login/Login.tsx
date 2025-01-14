@@ -1,6 +1,8 @@
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { AnyAction } from "redux";
 import { InjectedFormProps, reduxForm } from "redux-form";
+import { ThunkDispatch } from "redux-thunk";
 import { login } from "../../redux/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import { required } from "../../utils/validators/validators";
@@ -32,15 +34,6 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
 
 const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({ form: "login" })(LoginForm);
 
-type MapStatePropsType = {
-  captchaUrl: string | null
-  isAuth: boolean | null
-}
-
-type MapDispatchPropsType = {
-  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-
 type LoginFormValuesType = {
   captcha: string
   rememberMe: boolean
@@ -48,26 +41,25 @@ type LoginFormValuesType = {
   email: string
 }
 
-const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+const LoginPage: React.FC = () => {
+  const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
+  const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+  const dispatch: ThunkDispatch<AppStateType, unknown, AnyAction> = useDispatch()
+
   const onSubmit = ({ email, password, rememberMe, captcha }: any) => {
-    props.login(email, password, rememberMe, captcha);
+    dispatch(login(email, password, rememberMe, captcha))
   };
 
-  if (props.isAuth) {
+  if (isAuth) {
     return <Navigate to={"/profile"} />;
   }
 
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
     </div>
   );
 };
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  captchaUrl: state.auth.captchaUrl,
-  isAuth: state.auth.isAuth,
-})
-
-export default connect(mapStateToProps, { login })(Login);
+export default LoginPage

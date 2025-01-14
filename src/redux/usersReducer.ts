@@ -15,7 +15,7 @@ let initialState = {
   followingInProgress: [] as Array<number>, // array of users id
   filter: {
     term: "",
-    friend: null as null | boolean
+    friend: ""
   }
 };
 
@@ -94,6 +94,7 @@ export const getUsers = (
     dispatch(actions.setTotalUsersCount(data.totalCount));
   };
 };
+
 
 const _followUnfollowFlow = async (
   dispatch: Dispatch<ActionsTypes>,

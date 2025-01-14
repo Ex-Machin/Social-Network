@@ -9,17 +9,18 @@ import NavBarContainer from "./components/NavBar/NavBarContainer";
 import News from "./components/News/News";
 import Preloader from "./components/Preloader/Preloader";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
 import { withRouter } from "./hoc/withRouter";
 import { initialize } from "./redux/app-reducer";
 import { AppStateType } from "./redux/redux-store";
+import 'antd/dist/antd.css';
+
+
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogsContainer")
 );
-const ProfileContainer = React.lazy(() =>
-  import("./components/Profile/ProfileContainer")
-);
-const Login = React.lazy(() => import("./components/Login/Login"));
+const ProfilePage = React.lazy(() => import("./components/Profile/ProfilePage"));
+const LoginPage = React.lazy(() => import("./components/Login/Login"));
+const UsersPage = React.lazy(() => import("./components/Users/UsersPage"));
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -28,7 +29,7 @@ type DispatchPropsType = {
 
 class App extends Component<MapPropsType & DispatchPropsType> {
 
-  catchAllUnhandledErrors = () =>{
+  catchAllUnhandledErrors = () => {
     alert("Some error occured")
   }
 
@@ -54,19 +55,16 @@ class App extends Component<MapPropsType & DispatchPropsType> {
           <div className="app-wrapper-content">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
-                <Route path="/" element={<ProfileContainer />} />
+                <Route path="/" element={<ProfilePage />} />
                 <Route path="/dialogs" element={<DialogsContainer />} />
-                <Route path="/profile/:id" element={<ProfileContainer />} />
-                <Route path="/profile" element={<ProfileContainer />} />
+                <Route path="/profile/:id" element={<ProfilePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/music" element={<Music />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route
-                  path="/users"
-                  element={<UsersContainer pageTitle="Каничива" />}
-                />
-                <Route path="/login" element={<Login />} />
-                <Route path="*" element={<div>Not Found</div>} />
+                <Route path="/users" element={<UsersPage pageTitle="Каничива" />}/>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="*" element={<Button>Not Found</Button>} />
               </Routes>
             </Suspense>
           </div>

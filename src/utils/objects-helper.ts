@@ -13,8 +13,8 @@ export const updateObjectInArray = (
 };
 
 export const addQuery = (chainSign: '?' | "&", query: string, value: any) => {
-    if (value) {
-        return `${chainSign}${query}=${value}`
-    }
-    return ''
+  if (value) {
+    return `${chainSign}${query}=${value}`
+  }
+  return ''
 }
