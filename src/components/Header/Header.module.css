@@ -1,11 +1,20 @@
 .header {
-  grid-area: header;
-  background-color: green;
+  position: sticky;
+  top: 0; 
+  z-index: 1;
+  width: 100%; 
 }
-.header img {
-  width: 20px;
+.header.logo {
+  float: left;
+  width: 40px;
+  height: 40px;
 }
 .loginBlock {
   float: right;
-  color: aquamarine;
+  /* width: 25%; */
+  height: 100%;
+  color: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
