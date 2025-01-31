@@ -13,6 +13,7 @@ const ChatPage: React.FC = () => {
     </div>
 }
 
+
 const Chat: React.FC = () => {
 
     const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
