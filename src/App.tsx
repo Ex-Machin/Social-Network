@@ -1,22 +1,22 @@
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
+import { Footer } from 'antd/lib/layout/layout';
 import React, { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes } from "react-router-dom";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from 'redux-thunk';
 import "./App.css";
-
+import Header from './components/Header/Header';
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Preloader from "./components/Preloader/Preloader";
 import Settings from "./components/Settings/Settings";
+import ChatPage from './pages/Chat/ChatPage';
 import { initialize } from "./redux/app-reducer";
 import { AppStateType } from "./redux/redux-store";
-import Header from './components/Header/Header';
-import { Footer } from 'antd/lib/layout/layout';
 
 const { Content, Sider } = Layout;
 
@@ -24,10 +24,6 @@ const items = [
   {
     icon: UserOutlined,
     label: <Link to="/profile">Profile</Link>
-  },
-  {
-    icon: LaptopOutlined,
-    label: <Link to="/dialogs">Dialogs</Link>
   },
   {
     icon: NotificationOutlined,
@@ -44,6 +40,10 @@ const items = [
   {
     icon: UserOutlined,
     label: <Link to="/settings">Settings</Link>
+  },
+  {
+    icon: UserOutlined,
+    label: <Link to="/chat">Chat</Link>
   }
 ]
 
@@ -56,9 +56,9 @@ const items2: MenuProps['items'] = items.map((item, index) => {
 },
 );
 
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 const ProfilePage = React.lazy(() => import("./components/Profile/ProfilePage"));
 const LoginPage = React.lazy(() => import("./components/Login/Login"));
+const ChatpPage = React.lazy(() => import("./pages/Chat/ChatPage"));
 const UsersPage = React.lazy(() => import("./components/Users/UsersPage"));
 
 export const App: React.FC = () => {
@@ -106,7 +106,6 @@ export const App: React.FC = () => {
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                   <Route path="/" element={<ProfilePage />} />
-                  <Route path="/dialogs" element={<DialogsContainer />} />
                   <Route path="/profile/:id" element={<ProfilePage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/news" element={<News />} />
@@ -114,6 +113,7 @@ export const App: React.FC = () => {
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/users" element={<UsersPage pageTitle="Каничива" />} />
                   <Route path="/login" element={<LoginPage />} />
+                  <Route path="/chat" element={<ChatPage />} />
                   <Route path="*" element={<div>Not Found</div>} />
                 </Routes>
               </Suspense>

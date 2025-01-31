@@ -21,6 +21,7 @@
     "redux-form": "^8.3.8",
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.6",
+    "socket.io": "^4.8.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
